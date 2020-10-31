@@ -56,17 +56,7 @@ int main(int argc, char** argv) {
 		}
 		// TODO
 		buff[bytes_received] = '\0';
-		printf("String 1:%s\n", buff);
-
-		bytes_received = recvfrom(client_sock, buff, BUFF_SIZE - 1, 0, (struct sockaddr *) &server_addr, &sin_size);
-		if(bytes_received < 0){
-			perror("Error: ");
-			close(client_sock);
-			return 0;
-		}
-		// TODO
-		buff[bytes_received] = '\0';
-		printf("String 2: %s\n", buff);
+		printf("Result:\n%s\n", buff);
 	} while (1);
 
 	close(client_sock);

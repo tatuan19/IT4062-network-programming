@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 	printf("Server is running in port %d...\n\n", atoi(argv[1]));
 	//Step 3: Communicate with clients
 	while(1){
-		char numStr[100], letStr[100], message[100];
+		char numStr[100], letStr[100], message[300];
 
 		sin_size=sizeof(struct sockaddr_in);
 
@@ -60,12 +60,15 @@ int main(int argc, char** argv) {
 			
 			int result = checkMessage(buff,letStr,numStr);
 			if (result == 0) {
-				printf("Error: Invalid character\n");
+				printf("Error: Invalid character\n\n");
 				strcpy(message, "Error: Invalid character");
 				sendto(server_sock, message, strlen(message), MSG_CONFIRM, (struct sockaddr *) &client, sin_size );
 			} else {
-				sendto(server_sock, letStr, strlen(letStr), MSG_CONFIRM, (const struct sockaddr *) &client, sizeof(client)); 
-				sendto(server_sock, numStr, strlen(numStr), MSG_CONFIRM, (const struct sockaddr *) &client, sizeof(client)); 
+				strcpy(message, "String 1: ");
+				strcat(message, letStr);
+				strcat(message, "\nString 2: ");
+				strcat(message, numStr);
+				sendto(server_sock, message, strlen(message), MSG_CONFIRM, (struct sockaddr *) &client, sin_size );
 			}
 		}
 					
