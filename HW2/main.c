@@ -13,8 +13,8 @@ int main(int argc, char** argv) {
 		return 0;
 	} 
 	
-	// if (inet_pton(AF_INET, argv[1], &addr)) {
-   	if (inet_aton(argv[1], &addr)) {
+    // Convert IP addresses from a dots-and-number string to a struct in_addr
+   	if (inet_aton(argv[1], &addr)) { 
     	if ((host_entry = gethostbyaddr(&addr, sizeof(addr), AF_INET)) != NULL) {
     		printf("Official name: %s\nAlias name:\n", host_entry->h_name);
     		for (int i = 0; host_entry->h_aliases[i]; i++)
